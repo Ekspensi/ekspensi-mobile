@@ -1,4 +1,4 @@
-package com.bangkit.application.view.main
+package com.bangkit.application.view.signup
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,9 +7,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bangkit.application.R
 
-class MainActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_signup)
     }
 }
