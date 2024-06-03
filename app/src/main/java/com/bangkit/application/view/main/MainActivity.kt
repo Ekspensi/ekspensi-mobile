@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bangkit.application.R
+import com.bangkit.application.view.login.LoginActivity
 import com.bangkit.application.view.signup.SignupActivity
 
 class MainActivity : AppCompatActivity() {
@@ -14,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivity(Intent(this, SignupActivity::class.java))
-
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
 

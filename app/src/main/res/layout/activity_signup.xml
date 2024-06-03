@@ -9,7 +9,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextText"
+        android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -27,13 +27,14 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextNumber"
+        android:id="@+id/telp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -47,18 +48,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText">
+        app:layout_constraintTop_toBottomOf="@+id/username">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/telpInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            />
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -66,44 +67,47 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/password"
+        app:endIconMode="password_toggle"
         app:cursorColor="@color/main"
         app:hintTextColor="@color/main"
         app:boxStrokeColor="@color/main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber">
+        app:layout_constraintTop_toBottomOf="@+id/telp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="@string/confirm_password"
+        app:endIconMode="password_toggle"
         app:cursorColor="@color/main"
         app:hintTextColor="@color/main"
         app:boxStrokeColor="@color/main"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword">
+        app:layout_constraintTop_toBottomOf="@+id/password">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -223,7 +227,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintTop_toBottomOf="@+id/confirm" />
 
     <TextView
         android:id="@+id/textView3"
@@ -236,7 +240,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

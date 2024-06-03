@@ -20,6 +20,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        setupAction()
     }
 
     private fun setupView() {
@@ -36,6 +37,22 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun setupAction(){
+        binding.button.setOnClickListener {
+            val username = binding.usernameInput.text.toString()
+            val telp = binding.telpInput.text.toString()
+            val password = binding.passwordInput.text.toString()
+            val confirm = binding.confirmInput.text.toString()
 
+            if (password != confirm){
+                binding.confirm.error = "Password tidak sesuai"
+            } else {
+                binding.confirm.error = null
+            }
+
+        }
+
+        binding.textViewLogin.setOnClickListener {
+            finish()
+        }
     }
 }
