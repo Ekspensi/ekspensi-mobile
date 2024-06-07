@@ -20,7 +20,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("register")
-    suspend fun register( // TODO: validete if it use email or not
+    suspend fun register( // TODO: validate if it use email or not
         @Body request: RegisterRequest
     ): RegisterResponse
 
