@@ -1,5 +1,7 @@
 package com.bangkit.application.data.remote.retrofit
 
+import com.bangkit.application.data.remote.response.LoginResponse
+import com.bangkit.application.data.remote.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Field
@@ -13,21 +15,19 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    //TODO: change using actual api
-//    @FormUrlEncoded
-//    @POST("register")
-//    suspend fun register(
-//        @Field("name") name: String,
-//        @Field("email") email: String,
-//        @Field("password") password: String
-//    ): RegisterResponse
+    @FormUrlEncoded
+    @POST("register")
+    suspend fun register( // TODO: validete if it use email or not
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): RegisterResponse
 
-    //TODO: change using actual api
-//    @FormUrlEncoded
-//    @POST("login")
-//    suspend fun login(
-//        @Field("email") email: String,
-//        @Field("password") password: String
-//    ): LoginResponse
+    @FormUrlEncoded
+    @POST("login")
+    suspend fun login(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): LoginResponse
 
 }
