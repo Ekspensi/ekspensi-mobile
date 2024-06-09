@@ -128,13 +128,13 @@ class SignupActivity : AppCompatActivity() {
             valid = false;
         } else {
             binding.password.error = null;
-        }
 
-        if(password != confirm){
-            binding.confirm.error = "Password tidak sesuai"
-            valid = false;
-        } else {
-            binding.confirm.error = null;
+            if(password != confirm){
+                binding.confirm.error = "Password tidak sesuai"
+                valid = false;
+            } else {
+                binding.confirm.error = null;
+            }
         }
 
         return valid;
