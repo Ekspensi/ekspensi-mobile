@@ -40,29 +40,31 @@ class LoginActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val username = binding.usernameInput.text.toString()
             val password = binding.passwordInput.text.toString()
+            val valid = validate(username, password)
 
-            val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+            if (valid) {
+                val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
 
-            val viewModel: LoginViewModel by viewModels {
-                factory
-            }
+                val viewModel: LoginViewModel by viewModels {
+                    factory
+                }
 
-            lifecycleScope.launch {
-                try {
-                    //get success message
-                    val response = viewModel.login(username, password)
-                    val message = response.message
-                    message?.let { showSuccessDialog() }
-                    response.data?.accessToken?.let { viewModel.saveSession(UserModel(username, response.data.accessToken)) }
-                } catch (e: HttpException) {
-                    //get error message
-                    val jsonInString = e.response()?.errorBody()?.string()
-                    val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
-                    val errorMessage = errorBody.message
-                    errorMessage?.let {showErrorDialog(it)}
+                lifecycleScope.launch {
+                    try {
+                        //get success message
+                        val response = viewModel.login(username, password)
+                        val message = response.message
+                        message?.let { showSuccessDialog() }
+                        response.data?.accessToken?.let { viewModel.saveSession(UserModel(username, response.data.accessToken)) }
+                    } catch (e: HttpException) {
+                        //get error message
+                        val jsonInString = e.response()?.errorBody()?.string()
+                        val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
+                        val errorMessage = errorBody.message
+                        errorMessage?.let {showErrorDialog(it)}
+                    }
                 }
             }
-
         }
 
         binding.textViewRegister.setOnClickListener {
@@ -108,5 +110,25 @@ class LoginActivity : AppCompatActivity() {
             create()
             show()
         }
+    }
+
+    private fun validate(username: String, password: String): Boolean {
+        var valid = true;
+
+        if (username == ""){
+            binding.username.error = "Username harus diisi"
+            valid = false
+        } else {
+            binding.username.error = null
+        }
+
+        if (password == ""){
+            binding.password.error = "Password harus diisi"
+            valid = false
+        } else {
+            binding.password.error = null
+        }
+
+        return valid
     }
 }
