@@ -10,9 +10,6 @@ data class RegisterRequest(
 	@field:SerializedName("phonenum")
 	val phonenum: String? = null,
 
-	@field:SerializedName("email")
-	val email: String? = null,
-
 	@field:SerializedName("username")
 	val username: String? = null
 )

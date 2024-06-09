@@ -22,8 +22,8 @@ class UserRepository private constructor(
         return userPreference.getSession()
     }
 
-    suspend fun register(username: String, phoneNum: String, email: String, password: String ):RegisterResponse{
-        return apiService.register(RegisterRequest(password, phoneNum, email, username))
+    suspend fun register(username: String, phoneNum: String, password: String ):RegisterResponse{
+        return apiService.register(RegisterRequest(password, phoneNum, username))
     }
 
     suspend fun login(username: String, password: String): LoginResponse{

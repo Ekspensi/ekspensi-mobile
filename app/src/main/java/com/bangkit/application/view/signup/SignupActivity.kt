@@ -5,11 +5,19 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.bangkit.application.R
+import com.bangkit.application.data.remote.response.RegisterResponse
 import com.bangkit.application.databinding.ActivitySignupBinding
+import com.bangkit.application.view.ViewModelFactory
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class SignupActivity : AppCompatActivity() {
 
@@ -47,12 +55,50 @@ class SignupActivity : AppCompatActivity() {
                 binding.confirm.error = "Password tidak sesuai"
             } else {
                 binding.confirm.error = null
-            }
+                val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+                val viewModel: SignupViewModel by viewModels {
+                    factory
+                }
 
+                lifecycleScope.launch {
+                    try {
+                        val message = viewModel.register(username, telp, password)
+                        message?.let { showSuccessDialog(username) }
+                    } catch (e: HttpException) {
+                        val jsonInString = e.response()?.errorBody()?.string()
+                        val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+                        val errorMessage = errorBody.message
+                        errorMessage?.let {showErrorDialog(it)}
+                    }
+                }
+            }
         }
 
         binding.textViewLogin.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun showErrorDialog(errorMessage: String) {
+        // Using 'this@MainActivity' to get the Context within an Activity
+        AlertDialog.Builder(this).apply {
+            setTitle("Error")
+            setMessage(errorMessage)
+            setPositiveButton("OK", null)
+            create()
+            show()
+        }
+    }
+    private fun showSuccessDialog(email: String) {
+        // Using 'this@MainActivity' to get the Context within an Activity
+        AlertDialog.Builder(this).apply {
+            setTitle("Yeah!")
+            setMessage("Akun dengan $email sudah jadi nih. Yuk, login.")
+            setPositiveButton("Lanjut") { _, _ ->
+                finish()
+            }
+            create()
+            show()
         }
     }
 }
