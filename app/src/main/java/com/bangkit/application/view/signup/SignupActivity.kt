@@ -50,11 +50,9 @@ class SignupActivity : AppCompatActivity() {
             val telp = binding.telpInput.text.toString()
             val password = binding.passwordInput.text.toString()
             val confirm = binding.confirmInput.text.toString()
+            val valid = validate(username, telp, password, confirm);
 
-            if (password != confirm){
-                binding.confirm.error = "Password tidak sesuai"
-            } else {
-                binding.confirm.error = null
+            if (valid){
                 val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
                 val viewModel: SignupViewModel by viewModels {
                     factory
@@ -73,7 +71,6 @@ class SignupActivity : AppCompatActivity() {
                 }
             }
         }
-
         binding.textViewLogin.setOnClickListener {
             finish()
         }
@@ -100,5 +97,46 @@ class SignupActivity : AppCompatActivity() {
             create()
             show()
         }
+    }
+
+    private fun validate(username: String, telp: String, password: String, confirm: String): Boolean {
+        var valid = true;
+
+        if(username == ""){
+            binding.username.error = "Username harus diisi"
+            valid = false;
+        } else {
+            binding.username.error = null;
+        }
+
+        if(telp == ""){
+            binding.telp.error = "Nomer telpon harus diisi"
+            valid = false;
+        } else {
+            binding.telp.error = null;
+        }
+
+        if(password == ""){
+            binding.password.error = "Password harus diisi"
+            valid = false;
+        } else {
+            binding.password.error = null;
+        }
+
+        if(confirm == ""){
+            binding.confirm.error = "Password harus diisi"
+            valid = false;
+        } else {
+            binding.password.error = null;
+        }
+
+        if(password != confirm){
+            binding.confirm.error = "Password tidak sesuai"
+            valid = false;
+        } else {
+            binding.confirm.error = null;
+        }
+
+        return valid;
     }
 }

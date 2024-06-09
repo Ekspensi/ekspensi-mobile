@@ -18,13 +18,11 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @FormUrlEncoded
-    @POST("register")
+    @POST("user")
     suspend fun register( // TODO: validate if it use email or not
         @Body request: RegisterRequest
     ): RegisterResponse
 
-    @FormUrlEncoded
     @POST("auth/signin")
     suspend fun login(
         @Body request: LoginRequest
