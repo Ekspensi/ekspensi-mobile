@@ -3,6 +3,7 @@
     <style name="Base.Theme.Ekspensi" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/main</item>
+        <item name="colorAccent">@color/main</item>
     </style>
 
     <style name="Theme.Ekspensi" parent="Base.Theme.Ekspensi" />

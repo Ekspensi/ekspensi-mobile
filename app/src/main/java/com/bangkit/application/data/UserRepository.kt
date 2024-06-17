@@ -4,10 +4,12 @@ import com.bangkit.application.data.pref.UserModel
 import com.bangkit.application.data.pref.UserPreference
 import com.bangkit.application.data.remote.request.LoginRequest
 import com.bangkit.application.data.remote.request.RegisterRequest
+import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
 import com.bangkit.application.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class UserRepository private constructor(
     private val userPreference: UserPreference,
@@ -28,6 +30,10 @@ class UserRepository private constructor(
 
     suspend fun login(username: String, password: String): LoginResponse{
         return apiService.login(LoginRequest(password, username))
+    }
+
+    suspend fun getExpenses(): GetExpensesResponse{
+        return apiService.getExpenses("Bearer " + userPreference.getSession().first().token)
     }
     
     companion object {
