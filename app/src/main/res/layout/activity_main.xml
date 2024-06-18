@@ -18,7 +18,9 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
+
+            app:title="@string/main_activity"
+            app:menu="@menu/option_menu"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,14 +37,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+
+        <!-- Scrollable content -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExpenses"
-        android:layout_width="409dp"
-        android:layout_height="753dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/fab"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        tools:layout_editor_absoluteX="1dp" />
-    <!--    TODO: ganti warna icon fab-->
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        <!--    TODO: ganti warna icon fab-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

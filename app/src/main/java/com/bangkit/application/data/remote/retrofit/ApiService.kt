@@ -32,6 +32,8 @@ interface ApiService {
     @GET("/ekspensi")
     suspend fun getExpenses(
         @Header("Authorization") token: String,
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 10,
     ): GetExpensesResponse
 
 //    @FormUrlEncoded

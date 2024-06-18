@@ -1,9 +1,16 @@
 package com.bangkit.application.data
 
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.bangkit.application.data.pref.UserModel
 import com.bangkit.application.data.pref.UserPreference
+import com.bangkit.application.data.remote.ExpensesPagingSource
 import com.bangkit.application.data.remote.request.LoginRequest
 import com.bangkit.application.data.remote.request.RegisterRequest
+import com.bangkit.application.data.remote.response.DataItem
 import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
@@ -32,8 +39,19 @@ class UserRepository private constructor(
         return apiService.login(LoginRequest(password, username))
     }
 
-    suspend fun getExpenses(): GetExpensesResponse{
-        return apiService.getExpenses("Bearer " + userPreference.getSession().first().token)
+    fun getExpenses(): LiveData<PagingData<DataItem>>{
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                ExpensesPagingSource(apiService, userPreference)
+            }
+        ).liveData
+    }
+
+    suspend fun logout(){
+        userPreference.logout()
     }
     
     companion object {

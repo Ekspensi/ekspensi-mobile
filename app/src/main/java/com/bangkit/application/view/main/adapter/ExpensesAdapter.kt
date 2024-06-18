@@ -2,14 +2,15 @@ package com.bangkit.application.view.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.application.data.remote.response.DataExpenses
+import com.bangkit.application.data.remote.response.DataItem
 import com.bangkit.application.databinding.ActivitySignupBinding
 import com.bangkit.application.databinding.ItemExpensesBinding
 
-class ExpensesAdapter: ListAdapter<DataExpenses, ExpensesAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ExpensesAdapter: PagingDataAdapter<DataItem, ExpensesAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemExpensesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,24 +18,24 @@ class ExpensesAdapter: ListAdapter<DataExpenses, ExpensesAdapter.MyViewHolder>(D
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val review = getItem(position)
-        holder.bind(review)
+        review?.let {holder.bind(it)}
     }
 
     class MyViewHolder(val binding: ItemExpensesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(expenses: DataExpenses){
+        fun bind(expenses: DataItem){
             binding.klasifikasiText.text = expenses.klasifikasi
-            binding.datetimeText.text = expenses.dateTime
+            binding.datetimeText.text = expenses.createdAt
             binding.nominalText.text = expenses.nominal.toString()
             binding.descText.text = expenses.deskripsi
         }
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataExpenses>() {
-            override fun areItemsTheSame(oldItem: DataExpenses, newItem: DataExpenses): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataItem>() {
+            override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: DataExpenses, newItem: DataExpenses): Boolean {
+            override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
                 return oldItem == newItem
             }
         }

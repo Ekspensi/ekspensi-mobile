@@ -29,6 +29,8 @@
 
     <string name="main_activity">Money Manager</string>
 
+    <string name="logout">logout</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
