@@ -2,6 +2,7 @@ package com.bangkit.application.data.remote.retrofit
 
 import com.bangkit.application.data.remote.request.LoginRequest
 import com.bangkit.application.data.remote.request.RegisterRequest
+import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
 import okhttp3.MultipartBody
@@ -27,6 +28,13 @@ interface ApiService {
     suspend fun login(
         @Body request: LoginRequest
     ): LoginResponse
+
+    @GET("/ekspensi")
+    suspend fun getExpenses(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 10,
+    ): GetExpensesResponse
 
 //    @FormUrlEncoded
 //    @POST("login")
