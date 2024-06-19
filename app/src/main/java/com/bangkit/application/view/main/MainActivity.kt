@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
-
         setupView()
         setupAction()
     }

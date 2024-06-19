@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -66,6 +67,8 @@ class HistoryActivity : AppCompatActivity() {
         binding.topAppBar.setOnMenuItemClickListener{
             when(it.itemId){
                 R.id.menu2 -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                     true
                 }
@@ -85,6 +88,16 @@ class HistoryActivity : AppCompatActivity() {
                 val viewModel: HistoryViewModel by viewModels {
                     factory
                 }
+
+                val view: View? = this.currentFocus
+
+                if (view != null) {
+                    val inputMethodManager =
+                        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
+                }
+
+                binding.historyInput.setText("")
 
 
                 lifecycleScope.launch {
@@ -146,7 +159,12 @@ class HistoryActivity : AppCompatActivity() {
         AlertDialog.Builder(this).apply {
             setTitle("Yeah!")
             setMessage("Anda menambahkan pengeluaran")
-            setPositiveButton("Lanjut", null)
+            setPositiveButton("Lanjut") { _, _ ->
+//                val intent = Intent(context, MainActivity::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                startActivity(intent)
+//                finish()
+            }
             create()
             show()
         }
