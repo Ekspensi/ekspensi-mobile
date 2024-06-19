@@ -6,6 +6,7 @@
         <item name="colorAccent">@color/main</item>
         <item name="colorOnPrimaryContainer">@color/white</item>
         <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="Theme.Ekspensi" parent="Base.Theme.Ekspensi" />

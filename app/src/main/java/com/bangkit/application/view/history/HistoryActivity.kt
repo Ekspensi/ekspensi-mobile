@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.application.R
 import com.bangkit.application.data.db.DatabaseContract
 import com.bangkit.application.data.db.HistoryHelper
 import com.bangkit.application.data.entity.History
@@ -62,6 +63,15 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
+        binding.topAppBar.setOnMenuItemClickListener{
+            when(it.itemId){
+                R.id.menu2 -> {
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
         binding.addButton.setOnClickListener {
             val data = binding.historyInput.text.toString().trim()
 

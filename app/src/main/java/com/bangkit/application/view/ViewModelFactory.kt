@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.application.data.UserRepository
 import com.bangkit.application.di.Injection
+import com.bangkit.application.view.history.HistoryViewModel
 import com.bangkit.application.view.login.LoginViewModel
 import com.bangkit.application.view.main.MainViewModel
 import com.bangkit.application.view.signup.SignupViewModel
@@ -22,6 +23,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
