@@ -8,7 +8,7 @@ import com.bangkit.application.R
 import com.bangkit.application.data.entity.History
 import com.bangkit.application.databinding.ItemHistoryBinding
 
-class InputAdapter(private val onItemClickCallback: OnItemClickCallback) : RecyclerView.Adapter<InputAdapter.HistoryViewHolder>() {
+class HistoryAdapter() : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     var listHistory = ArrayList<History>()
         set(listNotes) {
@@ -55,4 +55,6 @@ class InputAdapter(private val onItemClickCallback: OnItemClickCallback) : Recyc
     interface OnItemClickCallback {
         fun onItemClicked(selectedNote: History?, position: Int?)
     }
+
+
 }

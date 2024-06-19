@@ -1,4 +1,4 @@
-package com.bangkit.application.view
+package com.bangkit.application.utils
 
 import java.time.OffsetDateTime
 import java.text.NumberFormat

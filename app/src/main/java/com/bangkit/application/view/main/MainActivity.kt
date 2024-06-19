@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.application.R
 import com.bangkit.application.databinding.ActivityMainBinding
 import com.bangkit.application.view.ViewModelFactory
+import com.bangkit.application.view.history.HistoryActivity
 import com.bangkit.application.view.login.LoginActivity
 import com.bangkit.application.view.main.adapter.ExpensesAdapter
 
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvExpenses.adapter = adapter
 
         viewModel.listData.observe(this) {
+            Log.d("paging data", this.toString())
             adapter.submitData(lifecycle, it)
         }
 //        viewModel.listData.observe(this){
@@ -85,6 +87,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+
+        binding.fab.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 

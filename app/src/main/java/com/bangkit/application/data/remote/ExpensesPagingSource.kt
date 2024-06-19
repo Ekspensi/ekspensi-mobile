@@ -24,7 +24,8 @@ class ExpensesPagingSource (private val apiService: ApiService, private val user
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DataItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = apiService.getExpenses( "Bearer " + userPreference.getSession().first().token, position, params.loadSize)
+//            val responseData = apiService.getExpenses( "Bearer " + userPreference.getSession().first().token, position, params.loadSize)
+            val responseData = apiService.getExpenses( "asdfghjk", position, params.loadSize)
             val responseList: List<DataItem> = responseData.data?.data?.filterNotNull()?: emptyList()
             LoadResult.Page(
                 data = responseList,

@@ -8,9 +8,11 @@ import androidx.paging.liveData
 import com.bangkit.application.data.pref.UserModel
 import com.bangkit.application.data.pref.UserPreference
 import com.bangkit.application.data.remote.ExpensesPagingSource
+import com.bangkit.application.data.remote.request.EkspensiRequest
 import com.bangkit.application.data.remote.request.LoginRequest
 import com.bangkit.application.data.remote.request.RegisterRequest
 import com.bangkit.application.data.remote.response.DataItem
+import com.bangkit.application.data.remote.response.EkspensiResponse
 import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
@@ -48,6 +50,10 @@ class UserRepository private constructor(
                 ExpensesPagingSource(apiService, userPreference)
             }
         ).liveData
+    }
+
+    suspend fun postExpenses(data: String): EkspensiResponse{
+        return apiService.postExpenses("Bearer " + userPreference.getSession().first().token, EkspensiRequest(data))
     }
 
     suspend fun logout(){

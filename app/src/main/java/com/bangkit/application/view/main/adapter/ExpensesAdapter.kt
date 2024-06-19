@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.application.data.remote.response.DataItem
-import com.bangkit.application.databinding.ActivitySignupBinding
 import com.bangkit.application.databinding.ItemExpensesBinding
-import com.bangkit.application.view.convertToDateOnly
-import com.bangkit.application.view.formatToRupiah
+import com.bangkit.application.utils.convertToDateOnly
+import com.bangkit.application.utils.formatToRupiah
 
 class ExpensesAdapter: PagingDataAdapter<DataItem, ExpensesAdapter.MyViewHolder>(DIFF_CALLBACK) {
 

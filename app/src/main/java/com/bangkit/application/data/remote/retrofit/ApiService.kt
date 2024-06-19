@@ -1,7 +1,9 @@
 package com.bangkit.application.data.remote.retrofit
 
+import com.bangkit.application.data.remote.request.EkspensiRequest
 import com.bangkit.application.data.remote.request.LoginRequest
 import com.bangkit.application.data.remote.request.RegisterRequest
+import com.bangkit.application.data.remote.response.EkspensiResponse
 import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
@@ -35,6 +37,12 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("limit") limit: Int = 10,
     ): GetExpensesResponse
+
+    @POST("/ekspensi")
+    suspend fun postExpenses(
+        @Header("Authorization") token: String,
+        @Body request: EkspensiRequest
+    ): EkspensiResponse
 
 //    @FormUrlEncoded
 //    @POST("login")

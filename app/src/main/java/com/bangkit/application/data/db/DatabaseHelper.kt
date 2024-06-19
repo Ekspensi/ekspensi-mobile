@@ -13,7 +13,7 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         private const val DATABASE_VERSION = 1
         private const val SQL_CREATE_TABLE_NOTE = "CREATE TABLE $TABLE_NAME" +
                 " (${HistoryColumn._ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " ${HistoryColumn.EXPENSES} TEXT NOT NULL,"
+                " ${HistoryColumn.EXPENSES} TEXT NOT NULL)"
     }
 
     override fun onCreate(db: SQLiteDatabase) {

@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
         binding.textViewRegister.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
+
     }
 
     private fun setupView() {
