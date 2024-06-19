@@ -13,14 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.application.data.db.DatabaseContract
 import com.bangkit.application.data.db.HistoryHelper
 import com.bangkit.application.data.entity.History
+import com.bangkit.application.data.remote.response.EkspensiResponse
+import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.databinding.ActivityHistoryBinding
 import com.bangkit.application.helper.MappingHelper
 import com.bangkit.application.view.ViewModelFactory
 import com.bangkit.application.view.history.adapter.HistoryAdapter
 import com.bangkit.application.view.main.MainActivity
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class HistoryActivity : AppCompatActivity() {
 
@@ -59,9 +63,9 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.addButton.setOnClickListener {
-            val description = binding.historyInput.text.toString().trim()
+            val data = binding.historyInput.text.toString().trim()
 
-            if (description.isEmpty()) {
+            if (data.isEmpty()) {
                 binding.textField.error = "Form harus diisi"
             } else {
                 binding.textField.error = null
@@ -72,26 +76,34 @@ class HistoryActivity : AppCompatActivity() {
                     factory
                 }
 
+
                 lifecycleScope.launch {
                     try {
-                        val response = viewModel.
-                    }
-                }
+                        val response = viewModel.postExpenses(data)
+                        val message = response.message
+                        message?.let { showSuccessDialog() }
 
-                val values = ContentValues().apply {
-                    put(DatabaseContract.HistoryColumn.EXPENSES, description)
-                }
-                val result = historyHelper.insert(values)
+                        val values = ContentValues().apply {
+                            put(DatabaseContract.HistoryColumn.EXPENSES, data)
+                        }
+                        val result = historyHelper.insert(values)
 
-                if (result > 0) {
-                    val history = History().apply {
-                        expenses = description
+                        if (result > 0) {
+                            val history = History().apply {
+                                expenses = data
+                            }
+                            showSuccessDialog()
+                            adapter.addItem(history)
+                            binding.rvHistory.smoothScrollToPosition(adapter.itemCount - 1)
+                        } else {
+                            showErrorDialog("Gagal menambahkan pengeluaran, coba lagi.")
+                        }
+                    } catch (e: HttpException) {
+                        val jsonInString = e.response()?.errorBody()?.string()
+                        val errorBody = Gson().fromJson(jsonInString, EkspensiResponse::class.java)
+                        val errorMessage = errorBody.message
+                        errorMessage?.let {showErrorDialog(it)}
                     }
-                    showSuccessDialog()
-                    adapter.addItem(history)
-                    binding.rvHistory.smoothScrollToPosition(adapter.itemCount - 1)
-                } else {
-                    showErrorDialog("Gagal menambahkan pengeluaran, coba lagi.")
                 }
             }
         }
