@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.application.data.remote.response.DataItem
 import com.bangkit.application.databinding.ActivitySignupBinding
 import com.bangkit.application.databinding.ItemExpensesBinding
+import com.bangkit.application.view.convertToDateOnly
+import com.bangkit.application.view.formatToRupiah
 
 class ExpensesAdapter: PagingDataAdapter<DataItem, ExpensesAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -24,8 +26,8 @@ class ExpensesAdapter: PagingDataAdapter<DataItem, ExpensesAdapter.MyViewHolder>
     class MyViewHolder(val binding: ItemExpensesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(expenses: DataItem){
             binding.klasifikasiText.text = expenses.klasifikasi
-            binding.datetimeText.text = expenses.createdAt
-            binding.nominalText.text = expenses.nominal.toString()
+            binding.datetimeText.text = expenses.createdAt?.let { convertToDateOnly(it) }
+            binding.nominalText.text = expenses.nominal?.let { formatToRupiah(it) }
             binding.descText.text = expenses.deskripsi
         }
     }
