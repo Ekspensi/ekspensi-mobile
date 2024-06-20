@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.application.R
 import com.bangkit.application.databinding.ActivityMainBinding
@@ -26,16 +27,10 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.getSession().observe(this) {
-            Log.d("usermodel", it.toString())
-            if (!it.isLogin){
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-        }
         setupView()
         setupAction()
     }
@@ -82,6 +77,8 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu1 -> {
                     viewModel.logout()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                     true
                 }
                 else -> false

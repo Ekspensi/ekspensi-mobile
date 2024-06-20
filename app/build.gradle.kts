@@ -64,4 +64,6 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
 
     implementation(libs.androidx.paging)
+
+    implementation(libs.androidx.core.splashscreen)
 }

@@ -3,12 +3,14 @@ package com.bangkit.application.view.login
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +21,7 @@ import com.bangkit.application.databinding.ActivityLoginBinding
 import com.bangkit.application.databinding.ActivitySignupBinding
 import com.bangkit.application.view.ViewModelFactory
 import com.bangkit.application.view.main.MainActivity
+import com.bangkit.application.view.main.MainViewModel
 import com.bangkit.application.view.signup.SignupActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -27,10 +30,26 @@ import retrofit2.HttpException
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
+    private val viewModel by viewModels<MainViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
+        Thread.sleep(3000)
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.getSession().observe(this) {
+            Log.d("usermodel", it.toString())
+            if (it.isLogin){
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
 
         setupView()
         setupAction()
@@ -54,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                         //get success message
                         val response = viewModel.login(username, password)
                         val message = response.message
-                        message?.let { showSuccessDialog() }
+//                        message?.let { showSuccessDialog() }
                         response.data?.accessToken?.let { viewModel.saveSession(UserModel(username, response.data.accessToken)) }
                     } catch (e: HttpException) {
                         //get error message
@@ -91,6 +110,8 @@ class LoginActivity : AppCompatActivity() {
             setTitle("Yeah!")
             setMessage("Anda berhasil login. Yuk kelola uangmu dengan mudah!")
             setPositiveButton("Lanjut") { _, _ ->
+                startActivity(Intent(context, MainActivity::class.java))
+                finish()
             }
             create()
             show()

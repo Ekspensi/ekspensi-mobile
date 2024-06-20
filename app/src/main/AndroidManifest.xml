@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Ekspensi"
         tools:targetApi="31">
         <activity
+            android:name=".view.detail.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.history.HistoryActivity"
             android:exported="false"
             android:theme="@style/Theme.Ekspensi" />
@@ -25,11 +28,12 @@
             android:name=".view.signup.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".view.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".view.main.MainActivity"
-            android:exported="true">
+            android:name=".view.login.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

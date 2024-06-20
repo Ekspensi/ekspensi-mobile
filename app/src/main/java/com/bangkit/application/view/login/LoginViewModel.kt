@@ -1,6 +1,8 @@
 package com.bangkit.application.view.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.bangkit.application.data.UserRepository
 import com.bangkit.application.data.pref.UserModel
@@ -18,5 +20,9 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
 
     suspend fun login(email: String, password: String): LoginResponse {
         return repository.login(email, password)
+    }
+
+    fun getSession(): LiveData<UserModel> {
+        return repository.getSession().asLiveData()
     }
 }
