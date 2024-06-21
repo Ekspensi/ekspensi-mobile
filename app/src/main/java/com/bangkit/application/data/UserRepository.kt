@@ -15,6 +15,7 @@ import com.bangkit.application.data.remote.response.DataItem
 import com.bangkit.application.data.remote.response.EkspensiResponse
 import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
+import com.bangkit.application.data.remote.response.OverviewResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
 import com.bangkit.application.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
@@ -58,6 +59,10 @@ class UserRepository private constructor(
 
     suspend fun logout(){
         userPreference.logout()
+    }
+
+    suspend fun overview(): OverviewResponse{
+        return apiService.getPrevOverview("Bearer " + userPreference.getSession().first().token)
     }
     
     companion object {

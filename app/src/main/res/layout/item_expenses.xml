@@ -14,7 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="87dp"
         android:padding="8dp">
 
         <TextView
@@ -23,8 +23,6 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
-            card_view:layout_constraintEnd_toStartOf="@+id/guideline2"
-            card_view:layout_constraintHorizontal_bias="1.0"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:text="@string/name" />
@@ -42,13 +40,6 @@
             card_view:layout_constraintTop_toBottomOf="@+id/nominalText"
             tools:text="@string/description" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            card_view:layout_constraintGuide_begin="197dp" />
-
         <TextView
             android:id="@+id/datetimeText"
             android:layout_width="0dp"
@@ -56,8 +47,6 @@
             android:textAlignment="textEnd"
             android:textSize="16sp"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
-            card_view:layout_constraintStart_toStartOf="@+id/guideline2"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:text="@string/tangal" />
 

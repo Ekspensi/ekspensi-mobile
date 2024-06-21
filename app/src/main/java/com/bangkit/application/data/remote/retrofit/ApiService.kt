@@ -6,6 +6,7 @@ import com.bangkit.application.data.remote.request.RegisterRequest
 import com.bangkit.application.data.remote.response.EkspensiResponse
 import com.bangkit.application.data.remote.response.GetExpensesResponse
 import com.bangkit.application.data.remote.response.LoginResponse
+import com.bangkit.application.data.remote.response.OverviewResponse
 import com.bangkit.application.data.remote.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -43,6 +44,11 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Body request: EkspensiRequest
     ): EkspensiResponse
+
+    @GET("/dashboard/overview/summary/previous-month")
+    suspend fun getPrevOverview(
+        @Header("Authorization") token: String
+    ): OverviewResponse
 
 //    @FormUrlEncoded
 //    @POST("login")
