@@ -37,6 +37,15 @@
     <string name="history">History</string>
     <string name="back">Back</string>
 
+    <string name="current_month">Current Month: </string>
+    <string name="previous_month">Previous Month: </string>
+    <string name="summary">Summary: </string>
+    
+    <string name="amount">Amount: None</string>
+    <string name="transactions">Transactions: None</string>
+    <string name="growth">Growth: None</string>
+    <string name="percentage">Percentage: None</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

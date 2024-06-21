@@ -11,6 +11,7 @@ import com.bangkit.application.data.UserRepository
 import com.bangkit.application.data.pref.UserModel
 import com.bangkit.application.data.remote.response.DataItem
 import com.bangkit.application.data.remote.response.GetExpensesResponse
+import com.bangkit.application.data.remote.response.OverviewResponse
 import com.bangkit.application.data.remote.retrofit.ApiConfig
 import kotlinx.coroutines.launch
 
@@ -23,6 +24,10 @@ class MainViewModel(private val repository: UserRepository): ViewModel() {
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
+    }
+
+    suspend fun overview(): OverviewResponse{
+        return repository.overview()
     }
 
     fun logout(){

@@ -10,13 +10,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.application.R
+import com.bangkit.application.data.remote.response.LoginResponse
 import com.bangkit.application.databinding.ActivityMainBinding
 import com.bangkit.application.view.ViewModelFactory
 import com.bangkit.application.view.history.HistoryActivity
 import com.bangkit.application.view.login.LoginActivity
 import com.bangkit.application.view.main.adapter.ExpensesAdapter
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +58,42 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = ExpensesAdapter()
         binding.rvExpenses.adapter = adapter
+
+        lifecycleScope.launch {
+            try {
+                val response = viewModel.overview()
+                response.data?.let {data ->
+                    data.freqTrxCurrentMonth?.let { freq ->
+                        binding.currTrans.setText("Transactions: ${freq}")
+                    }
+
+                    data.volTrxCurrentMonth?.let {vol ->
+                        binding.currAmount.setText("Amount: ${vol}")
+                    }
+
+                    data.freqTrxPrevMonth?.let { freq ->
+                        binding.prevTrans.setText("Transactions: ${freq}")
+                    }
+
+                    data.volTrxPrevMonth?.let {vol ->
+                        binding.prevAmount.setText("Amount: ${vol}")
+                    }
+
+                    data.expensesGrowth?.let { growth ->
+                        binding.sumAmount.setText("Growth: ${growth}")
+                    }
+
+                    data.expensesGrowthPercentage?.let {percen ->
+                        binding.sumPercen.setText("Percentage: ${percen}")
+                    }
+                }
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, LoginResponse::class.java)
+                val errorMessage = errorBody.message
+                errorMessage?.let {showErrorDialog(it)}
+            }
+        }
 
         viewModel.listData.observe(this) {
             Log.d("paging data", this.toString())
